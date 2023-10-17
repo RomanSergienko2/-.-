@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iomanip>
+
+class BigNumber {
+private:
+    std::vector<unsigned long long> data;
+
+public:
+
+    BigNumber() {}
+
+
+    BigNumber(const std::string& hexString) {
+        setData(hexString);
+    }
+
+
+    void setData(const std::string& hexString) {
+        data.clear();
+        std::istringstream ss(hexString);
+        ss >> std::hex;
+        unsigned long long num;
+        while (ss >> num) {
+            data.push_back(num);
+        }
+    }
+
+
+    std::string getData() const {
+        std::ostringstream ss;
+        for (const auto& num : data) {
+            ss << std::hex << num << ' ';
+        }
+        return ss.str();
+    }
+};
+
+int main() {
+
+    BigNumber num("1A 2B 3C");
+
+  
+    std::cout << "Value: " << num.getData() << std::endl;
+
+    return 0;
+}
